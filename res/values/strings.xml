@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Droid Localizer</string>
+    <string name="tx_senha">Password</string>
+    <string name="tx_enter">Enter</string>
+    <string name="tx_cancel">Cancel</string>
+    <string name="tx_user_pass_invalid">User or password is invalid</string>
+    <string name="titleBackground">Droid Localizer</string>
+    <string name="tx_status_servico">Status Serviço</string>
+    <string name="tx_tempo_atualizacao">Tempo Atualização</string>
+    <string name="tx_salvar">Salvar</string>
+</resources>

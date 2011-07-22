@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="50dip"
+	android:stretchColumns="1">
+
+	<TableRow android:id="@+id/tableRow2" android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:gravity="left" android:layout_centerVertical="true"
+		android:baselineAligned="false">
+
+		<ImageView android:id="@+id/imgLogo" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:src="@drawable/logo"
+			android:layout_weight="2" android:layout_gravity="center_vertical"/>
+
+		<TextView android:layout_width="wrap_content"
+			android:layout_gravity="center_vertical"
+			android:layout_height="wrap_content" android:id="@+id/titleMsg"
+			android:layout_alignParentRight="true" android:textSize="12sp" 
+			android:textColor="#000000"/>
+
+		<ProgressBar android:id="@+id/leadProgressBar"
+			style="?android:attr/progressBarStyleSmallTitle" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_centerVertical="true"
+			android:gravity="left" android:visibility="gone"
+			android:layout_toRightOf="@+id/titleMsg" android:paddingLeft="3dip" 
+			android:layout_gravity="center_vertical"/>
+	</TableRow>
+
+</TableLayout>

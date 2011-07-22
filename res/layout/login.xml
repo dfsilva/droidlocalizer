@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background">
+    
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+    	android:text="Login" android:textSize="17sp"/>
+    <EditText android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/txLogin"
+    	android:inputType="textEmailAddress"/>
+   
+    <TextView android:layout_width="wrap_content" android:id="@+id/textView1" android:text="@string/tx_senha" 
+    	android:layout_height="wrap_content" android:textSize="17sp"/>
+    <EditText android:layout_width="match_parent" android:layout_height="wrap_content" android:password="true" 
+    	android:id="@+id/txSenha" android:imeOptions="actionDone"/>
+    
+    <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/linearLayout1" android:orientation="horizontal">
+        <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_weight="1" android:id="@+id/btnEntrar" android:text="@string/tx_enter"/>
+        <Button android:layout_weight="1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/btnCancelar" android:text="@string/tx_cancel"/>
+    </LinearLayout> 
+</LinearLayout>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background">
+    
+    <LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent" 
+    	android:id="@+id/linearLayout0" android:orientation="horizontal" android:layout_gravity="right">
+    	<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" 
+    		android:textSize="17sp" android:text="@string/tx_status_servico" android:layout_gravity="center_vertical" android:layout_weight="1"/>
+    	<ToggleButton android:text="ToggleButton" android:id="@+id/tbStatusServico" android:layout_width="wrap_content" 
+    		android:layout_height="wrap_content" android:layout_gravity="right"/>
+    </LinearLayout>
+    
+    <LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent" 
+    	android:id="@+id/linearLayout2" android:orientation="horizontal" android:layout_gravity="right">
+    	<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" 
+    		android:textSize="17sp" android:layout_gravity="center_vertical" 
+    		android:layout_weight="1" android:text="@string/tx_tempo_atualizacao"/>
+    	
+    	<EditText android:layout_width="wrap_content" android:layout_height="wrap_content" 
+    		android:numeric="integer" android:text="000" android:id="@+id/txQtd" android:ems="3" 
+    		android:maxLength="3"/>
+    </LinearLayout>
+    
+    <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" 
+    	android:id="@+id/linearLayout1" android:orientation="horizontal">
+        
+        <Button android:layout_height="wrap_content" android:layout_width="wrap_content" 
+        	android:layout_weight="1" android:id="@+id/btnSalvar" 
+        	android:text="@string/tx_salvar"/>
+        
+        <Button android:layout_weight="1" android:layout_width="wrap_content" 
+        	android:layout_height="wrap_content" android:id="@+id/btnCancelar" 
+        	android:text="@string/tx_cancel"/>
+        	
+    </LinearLayout> 
+   
+</LinearLayout>

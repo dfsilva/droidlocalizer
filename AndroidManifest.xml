@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	package="br.com.diegosilva.droidlocalizer" android:versionCode="1"
+	android:versionName="1.0">
+
+	<application android:label="@string/app_name"
+		android:theme="@style/TitleTheme" android:icon="@drawable/logo">
+		<activity android:name="Configuracoes" 
+			android:configChanges="keyboardHidden|orientation">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		
+		<activity android:name="Login" 
+			android:configChanges="keyboardHidden|orientation">
+		</activity>
+
+		<receiver android:name="Startup">
+			<intent-filter>
+				<action android:name="android.intent.action.BOOT_COMPLETED" />
+				<category android:name="android.intent.category.HOME" />
+			</intent-filter>
+		</receiver>
+
+		<service android:name="Servico">
+			<intent-filter>
+				<action android:name="br.com.diegosilva.droidlocalizer.Servico" />
+			</intent-filter>
+		</service>
+	</application>
+
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+	<uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
+	<uses-permission android:name="android.permission.WRITE_SETTINGS" />
+	<uses-permission android:name="android.permission.GET_TASKS"/>
+	<uses-sdk android:minSdkVersion="2" />
+</manifest>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="titleBackground">
+        <item name="android:background">@drawable/topo</item>
+    </style>
+ 
+    <style name="TitleTheme" parent="android:Theme">
+        <item name="android:windowTitleSize">50dip</item>
+        <item name="android:windowTitleBackgroundStyle">@style/titleBackground</item>
+    </style>
+</resources>
