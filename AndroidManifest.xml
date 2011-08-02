@@ -23,12 +23,19 @@
 				<category android:name="android.intent.category.HOME" />
 			</intent-filter>
 		</receiver>
+		
+		<receiver android:name="AtualizarPosicao">
+			<intent-filter>
+				<action android:name="ATUALIZAR_POSICAO" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</receiver>
 
-		<service android:name="Servico">
+<!-- 		<service android:name="Servico">
 			<intent-filter>
 				<action android:name="br.com.diegosilva.droidlocalizer.Servico" />
 			</intent-filter>
-		</service>
+		</service> -->
 	</application>
 
 	<uses-permission android:name="android.permission.INTERNET" />
