@@ -10,5 +10,6 @@ public interface Constantes {
 	String NUMERO_TELEFONE = "numero_telefone";
 	Float DISTANCIA_MINIMA = 200f;
 	long TIMEOUT_GPS = 60000;
+	long TIMEOUT_REDE = 300000;
 	int INTERVALO_ATUALIZACAO = 5;
 }
