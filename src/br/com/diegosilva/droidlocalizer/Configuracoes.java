@@ -167,10 +167,8 @@ public class Configuracoes extends Activity {
 		AlarmManager alarme = (AlarmManager) context
 				.getSystemService(Activity.ALARM_SERVICE);
 		long time = Calendar.getInstance().getTimeInMillis();
-		int tempoAtualizacao = pref.getInt(Constantes.TEMPO_ATUALIZACAO, 0) * 60000; 
-		
-/*		= (pref.getInt(Constantes.TEMPO_ATUALIZACAO, 0) <= 30 ? 30
-				: pref.getInt(Constantes.TEMPO_ATUALIZACAO, 0)) * 60000;*/
+		int tempoAtualizacao = (pref.getInt(Constantes.TEMPO_ATUALIZACAO, 0) <= Constantes.INTERVALO_ATUALIZACAO ? Constantes.INTERVALO_ATUALIZACAO
+				: pref.getInt(Constantes.TEMPO_ATUALIZACAO, 0)) * 60000;
 		alarme.setRepeating(AlarmManager.RTC_WAKEUP, time, tempoAtualizacao, p);
 	}
 }

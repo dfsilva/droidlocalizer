@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.os.Bundle;
 import android.util.Log;
 import br.com.diegosilva.droidlocalizer.utils.Constantes;
@@ -22,6 +23,7 @@ public class AtualizarPosicao extends BroadcastReceiver {
 
 	private LocationManager lm;
 	private Context ctx;
+	private boolean aguardandoGps = false;
 
 	private LocationListener ll = new LocationListener() {
 		@Override
@@ -41,35 +43,43 @@ public class AtualizarPosicao extends BroadcastReceiver {
 
 		@Override
 		public void onLocationChanged(Location location) {
-			Log.i("ANDROID_LOCALIZER", new Date() + "Localizacao Alterada");
-			getLocationManager().removeUpdates(ll);
-			try {
-				JSONObject ultimaLocalizacao = getLastPosition();
-				if (ultimaLocalizacao != null) {
-					BigDecimal latAnt = BigDecimal.valueOf(ultimaLocalizacao.getJSONArray("localizacao").getJSONObject(0).getDouble("latitude"));
-					BigDecimal lonAnt = BigDecimal.valueOf(ultimaLocalizacao.getJSONArray("localizacao").getJSONObject(0).getDouble("longitude"));
-
-					BigDecimal lat = BigDecimal.valueOf(location.getLatitude());
-					BigDecimal lon = BigDecimal
-							.valueOf(location.getLongitude());
-					float distancia = distanticaEntrePontos(
-							latAnt.floatValue(), lonAnt.floatValue(),
-							lat.floatValue(), lon.floatValue());
-
-					if (Constantes.DISTANCIA_MINIMA.compareTo(distancia) < 0) {
-						registrarPosicao(location, location.getLongitude(),
-								location.getLatitude());
-					} else {
-						atualizaLocalizacao(location.getLongitude(),
-								location.getLatitude(),
-								ultimaLocalizacao.getJSONArray("localizacao").getJSONObject(0).getLong("id_localizacao"));
-					}
-				}
-			} catch (Exception e) {
-				Log.e("ANDROID_LOCALIZER", e.getMessage());
-			}
+			alteraLocation(location);
 		}
 	};
+
+	private void alteraLocation(Location location) {
+		Log.i("ANDROID_LOCALIZER", new Date() + "Localizacao Alterada");
+		getLocationManager().removeUpdates(ll);
+		aguardandoGps = false;
+		try {
+			JSONObject ultimaLocalizacao = getLastPosition();
+			if (ultimaLocalizacao != null) {
+				BigDecimal latAnt = BigDecimal.valueOf(ultimaLocalizacao
+						.getJSONArray("localizacao").getJSONObject(0)
+						.getDouble("latitude"));
+				BigDecimal lonAnt = BigDecimal.valueOf(ultimaLocalizacao
+						.getJSONArray("localizacao").getJSONObject(0)
+						.getDouble("longitude"));
+
+				BigDecimal lat = BigDecimal.valueOf(location.getLatitude());
+				BigDecimal lon = BigDecimal.valueOf(location.getLongitude());
+				float distancia = distanticaEntrePontos(latAnt.floatValue(),
+						lonAnt.floatValue(), lat.floatValue(), lon.floatValue());
+
+				if (Constantes.DISTANCIA_MINIMA.compareTo(distancia) < 0) {
+					registrarPosicao(location, location.getLongitude(),
+							location.getLatitude());
+				} else {
+					atualizaLocalizacao(location.getLongitude(),
+							location.getLatitude(),
+							ultimaLocalizacao.getJSONArray("localizacao")
+									.getJSONObject(0).getLong("id_localizacao"));
+				}
+			}
+		} catch (Exception e) {
+			Log.e("ANDROID_LOCALIZER", e.getMessage());
+		}
+	}
 
 	private float distanticaEntrePontos(float lat1, float lng1, float lat2,
 			float lng2) {
@@ -147,6 +157,13 @@ public class AtualizarPosicao extends BroadcastReceiver {
 		}
 	}
 
+	private void atualizaLocationNetworkProvider() {
+		String locationProvider = LocationManager.NETWORK_PROVIDER;
+		Location lastKnownLocation = getLocationManager().getLastKnownLocation(
+				locationProvider);
+		alteraLocation(lastKnownLocation);
+	}
+
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		Log.i("ANDROID_LOCALIZER", new Date()
@@ -154,7 +171,26 @@ public class AtualizarPosicao extends BroadcastReceiver {
 		ctx = context;
 		getLocationManager().requestLocationUpdates(
 				LocationManager.GPS_PROVIDER, 0, 0, ll);
-
+		aguardandoGps = true;
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					if (aguardandoGps) {
+						Thread.sleep(Constantes.TIMEOUT_GPS);
+						getLocationManager().removeUpdates(ll);
+						aguardandoGps = false;
+						atualizaLocationNetworkProvider();
+					}
+				} catch (InterruptedException e) {
+					if (aguardandoGps) {
+						getLocationManager().removeUpdates(ll);
+						aguardandoGps = false;
+						atualizaLocationNetworkProvider();
+					}
+				}
+			}
+		}).start();
 		Log.i("ANDROID_LOCALIZER", new Date() + "Fim das verificações");
 	}
 

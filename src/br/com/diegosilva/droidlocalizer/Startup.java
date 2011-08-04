@@ -22,11 +22,6 @@ public class Startup extends BroadcastReceiver {
 		SharedPreferences pref = context.getSharedPreferences(
 				Constantes.APP_NAME_KEY, 0);
 		if (pref.getBoolean(Constantes.STATUS_SERVICO, false)) {
-			/*
-			 * Intent serviceIntent = new Intent();
-			 * serviceIntent.setAction("br.com.diegosilva.droidlocalizer.Servico"
-			 * ); context.startService(serviceIntent);
-			 */
 			agendar(context, pref);
 		}
 		Log.i("ANDROID_LOCALIZER", new Date() + "Fim das verificações");
@@ -39,7 +34,7 @@ public class Startup extends BroadcastReceiver {
 		AlarmManager alarme = (AlarmManager) context
 				.getSystemService(Activity.ALARM_SERVICE);
 		long time = Calendar.getInstance().getTimeInMillis();
-		int tempoAtualizacao = (pref.getInt(Constantes.TEMPO_ATUALIZACAO, 0) <= 30 ? 30
+		int tempoAtualizacao = (pref.getInt(Constantes.TEMPO_ATUALIZACAO, 0) <= Constantes.INTERVALO_ATUALIZACAO ? Constantes.INTERVALO_ATUALIZACAO
 				: pref.getInt(Constantes.TEMPO_ATUALIZACAO, 0)) * 60000;
 		alarme.setRepeating(AlarmManager.RTC_WAKEUP, time, tempoAtualizacao, p);
 	}
