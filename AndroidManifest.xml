@@ -5,7 +5,7 @@
 
 	<application android:label="@string/app_name"
 		android:theme="@style/TitleTheme" android:icon="@drawable/logo">
-		<activity android:name="Configuracoes" 
+		<activity android:name="Login" 
 			android:configChanges="keyboardHidden|orientation">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
@@ -13,7 +13,7 @@
 			</intent-filter>
 		</activity>
 		
-		<activity android:name="Login" 
+		<activity android:name="Configuracoes" 
 			android:configChanges="keyboardHidden|orientation">
 		</activity>
 

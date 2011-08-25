@@ -49,11 +49,6 @@ public class AtualizarPosicao extends BroadcastReceiver {
 
 	private void verificaParaGps() {
 		getLocationManager().removeUpdates(ll);
-		aguardandoGps = false;
-/*		getLocationManager().requestLocationUpdates(
-				LocationManager.NETWORK_PROVIDER, 0, 0, ll);
-		aguardandoRede = true;*/
-		new Thread(verificacao).start();
 	}
 
 	private void verificaParaRede() {
@@ -243,7 +238,20 @@ public class AtualizarPosicao extends BroadcastReceiver {
 						LocationManager.NETWORK_PROVIDER, 0, 0, ll);
 				aguardandoRede = true;
 			}
-			new Thread(verificacao).start();
+			Thread t1 = new Thread(verificacao);
+			t1.start();
+			try {
+				t1.join();
+				if (aguardandoGps) {
+					aguardandoGps = false;
+					getLocationManager().requestLocationUpdates(
+							LocationManager.NETWORK_PROVIDER, 0, 0, ll);
+					aguardandoRede = true;
+					new Thread(verificacao).start();
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 		Log.i("ANDROID_LOCALIZER", new Date() + "Fim das verificações");
 	}

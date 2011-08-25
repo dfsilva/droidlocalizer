@@ -78,15 +78,10 @@ public class Login extends Activity implements Runnable {
 				SharedPreferences.Editor editor = pref.edit();
 				editor.putString(Constantes.ID_USUARIO_KEY,
 						objJson.getString("idUsuario"));
-				/*
-				 * String number =
-				 * getIntent().getExtras().getString("PHONE_NUMBER");
-				 * editor.putString(Constantes.NUMERO_TELEFONE, number);
-				 */
+				editor.putString(Constantes.SENHA_USUARIO, password);
 				editor.commit();
 				startActivity(new Intent(this, Configuracoes.class));
 				finish();
-
 			} else {
 				throw new Exception(getText(R.string.tx_user_pass_invalid)
 						.toString());
