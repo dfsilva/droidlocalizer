@@ -100,11 +100,6 @@ public class Servico extends Service {
 						new Date()
 								+ "Iniciando o processo de envio de informação de localização para servidor: "
 								+ Constantes.URL_APP_WEB);
-				/*
-				 * try { Process root = Runtime.getRuntime().exec("su"); if
-				 * (root != null) Log.i("Erro", root.toString()); } catch
-				 * (IOException e1) { Log.e("erro", e1.toString()); }
-				 */
 				if (!getLocationManager().isProviderEnabled(
 						android.location.LocationManager.GPS_PROVIDER)) {
 					try {

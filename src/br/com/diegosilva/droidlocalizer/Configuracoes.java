@@ -49,8 +49,6 @@ public class Configuracoes extends Activity {
 			etTempo.setEnabled(false);
 		}
 
-		// verificaIniciaServico();
-
 		tbStatus.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
@@ -84,6 +82,7 @@ public class Configuracoes extends Activity {
 							public void executarSim() {
 								finish();
 							}
+
 							@Override
 							public void executarNao() {
 							}
@@ -121,11 +120,13 @@ public class Configuracoes extends Activity {
 				serviceIntent, 0);
 		AlarmManager alarme = (AlarmManager) Configuracoes.this
 				.getSystemService(Activity.ALARM_SERVICE);
-		long time = Calendar.getInstance().getTimeInMillis();
-		SharedPreferences pref = getSharedPreferences(Constantes.APP_NAME_KEY,
-				0);
+
+		SharedPreferences pref = getSharedPreferences(Constantes.APP_NAME_KEY,0);
 		int tempoAtualizacao = (pref.getInt(Constantes.TEMPO_ATUALIZACAO, 0) <= Constantes.INTERVALO_ATUALIZACAO ? Constantes.INTERVALO_ATUALIZACAO
 				: pref.getInt(Constantes.TEMPO_ATUALIZACAO, 0)) * 60000;
-		alarme.setRepeating(AlarmManager.RTC_WAKEUP, time, tempoAtualizacao, p);
+
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.MINUTE, 2);
+		alarme.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), tempoAtualizacao, p);
 	}
 }
